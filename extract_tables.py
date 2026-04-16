@@ -97,9 +97,7 @@ def is_garbage(text):
     if re.match(r'^[^a-zA-ZÀ-ỹ0-9]+$', t):
         return True
     # Consecutive uppercase nonsense (e.g. "NENGGEGSGPcnv")
-    if re.search(r'[A-Z]{6,}', t) and not any(
-        w in t for w in ['MORPH', 'THRESH', 'BGR', 'HSV']
-    ):
+    if re.search(r'[A-Z]{6,}', t):
         return True
     return False
 
