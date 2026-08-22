@@ -1,11 +1,15 @@
 package com.tuyen.callvolume
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.tuyen.callvolume.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +20,21 @@ class MainActivity : AppCompatActivity() {
 
     private var minVolume = 0
     private var maxVolume = 1
+
+    private val requestNotifPermission = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+            VolumeNotificationHelper.buildAndShow(this)
+            updateToggleButtonText()
+        } else {
+            Toast.makeText(
+                this,
+                "Cần cấp quyền thông báo để hiện thanh âm lượng",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnIncrease.setOnClickListener { adjustVolume(AudioManager.ADJUST_RAISE) }
         binding.btnDecrease.setOnClickListener { adjustVolume(AudioManager.ADJUST_LOWER) }
+        binding.btnToggleNotifBar.setOnClickListener { toggleNotificationBar() }
 
         binding.seekBarVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -52,6 +72,33 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         refreshUi()
+        updateToggleButtonText()
+    }
+
+    private fun toggleNotificationBar() {
+        if (VolumeNotificationHelper.isActive(this)) {
+            VolumeNotificationHelper.dismiss(this)
+            updateToggleButtonText()
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestNotifPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else {
+            VolumeNotificationHelper.buildAndShow(this)
+            updateToggleButtonText()
+        }
+    }
+
+    private fun updateToggleButtonText() {
+        binding.btnToggleNotifBar.text = if (VolumeNotificationHelper.isActive(this)) {
+            getString(R.string.hide_notif_bar)
+        } else {
+            getString(R.string.show_notif_bar)
+        }
     }
 
     private fun adjustVolume(direction: Int) {

@@ -5,4 +5,9 @@
     <string name="volume_level_format">Mức: %1$d / %2$d</string>
     <string name="cd_increase">Tăng âm lượng</string>
     <string name="cd_decrease">Giảm âm lượng</string>
+    <string name="cd_dismiss">Ẩn thanh âm lượng</string>
+    <string name="notif_channel_name">Điều khiển âm lượng cuộc gọi</string>
+    <string name="notif_channel_desc">Thanh tăng/giảm âm lượng cuộc gọi hiện trên thanh thông báo</string>
+    <string name="show_notif_bar">Hiện thanh âm lượng trên thanh thông báo</string>
+    <string name="hide_notif_bar">Ẩn thanh âm lượng trên thanh thông báo</string>
 </resources>

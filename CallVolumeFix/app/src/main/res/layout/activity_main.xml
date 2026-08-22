@@ -57,6 +57,15 @@
         android:textSize="56sp"
         android:contentDescription="@string/cd_decrease"
         app:cornerRadius="65dp"
-        app:backgroundTint="#757575" />
+        app:backgroundTint="#757575"
+        android:layout_marginBottom="28dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnToggleNotifBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_notif_bar"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp" />
 
 </LinearLayout>
