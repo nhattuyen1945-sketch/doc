@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Âm Lượng Cuộc Gọi</string>
+    <string name="app_title">Chỉnh âm lượng cuộc gọi</string>
+    <string name="hint_only_during_call">Chỉ nghe rõ hiệu quả khi đang trong cuộc gọi</string>
+    <string name="volume_level_format">Mức: %1$d / %2$d</string>
+    <string name="cd_increase">Tăng âm lượng</string>
+    <string name="cd_decrease">Giảm âm lượng</string>
+</resources>
