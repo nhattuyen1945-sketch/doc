@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Viettel Checker</string>
+    <string name="waiting_placeholder">Đang chờ tin nhắn phản hồi…</string>
+</resources>
