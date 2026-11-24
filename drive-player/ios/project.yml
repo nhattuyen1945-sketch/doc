@@ -1,0 +1,27 @@
+# Tạo Xcode project:  brew install xcodegen && xcodegen generate && open DrivePlayer.xcodeproj
+name: DrivePlayer
+options:
+  bundleIdPrefix: com.example   # đổi thành prefix riêng của bạn
+  deploymentTarget:
+    iOS: "16.0"
+packages:
+  YouTubeKit:
+    url: https://github.com/alexeichhorn/YouTubeKit
+    from: 0.2.0
+targets:
+  DrivePlayer:
+    type: application
+    platform: iOS
+    sources: [DrivePlayer]
+    dependencies:
+      - package: YouTubeKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.driveplayer
+        INFOPLIST_FILE: DrivePlayer/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: DrivePlayer/DrivePlayer.entitlements
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        MARKETING_VERSION: "0.1"
+        CURRENT_PROJECT_VERSION: "1"
